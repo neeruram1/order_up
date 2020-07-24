@@ -35,5 +35,32 @@ RSpec.describe Chef, type: :model do
 
       expect(tony.ingredient_list).to eq([beef.name, carrots.name, garlic.name, sausage.name, parm.name, rigatoni.name])
     end
+
+    it "#popular_ingredients" do
+      tony = Chef.create(name: "Anthony Bourdain")
+
+      sunday_gravy = Dish.create(name: "Sunday Gravy with Sausage and Rigatoni", description: "An Italo-American Jersey classic", chef: tony)
+      boeuf = Dish.create(name: "Boeuf Bourguignon", description: "A classic French dish that sticks to your ribs", chef: tony)
+
+      sausage = Ingredient.create(name: "Hot Pork Sausage Links", calories: 240.0)
+      rigatoni = Ingredient.create(name: "Rigatoni", calories: 340.0)
+      parm = Ingredient.create(name: "Parmigiano-Reggiano", calories: 400)
+
+      garlic = Ingredient.create(name: "Garlic Clove", calories: 50.0)
+      carrots = Ingredient.create(name: "Carrots", calories: 140.0)
+      beef = Ingredient.create(name: "Beef Shoulder", calories: 450.0)
+
+      DishIngredient.create(dish: sunday_gravy, ingredient: sausage)
+      DishIngredient.create(dish: sunday_gravy, ingredient: rigatoni)
+      DishIngredient.create(dish: sunday_gravy, ingredient: parm)
+      DishIngredient.create(dish: sunday_gravy, ingredient: garlic)
+      DishIngredient.create(dish: sunday_gravy, ingredient: carrots)
+      DishIngredient.create(dish: boeuf, ingredient: garlic)
+      DishIngredient.create(dish: boeuf, ingredient: carrots)
+      DishIngredient.create(dish: boeuf, ingredient: beef)
+      DishIngredient.create(dish: boeuf, ingredient: parm)
+
+      expect(tony.popular_ingredients).to eq([carrots.name, garlic.name, parm.name])
+    end
   end
 end

@@ -41,4 +41,20 @@ RSpec.describe "Chef show page" do
     expect(page).to have_content(@carrots.name)
     expect(page).to have_content(@beef.name)
   end
+
+  it "I see the three most popular ingredients that the chef uses in their dishes" do
+    DishIngredient.create(dish: @sunday_gravy, ingredient: @carrots)
+    DishIngredient.create(dish: @boeuf, ingredient: @parm)
+
+    visit "/chefs/#{@tony.id}"
+
+    within ".popular-ingredients" do
+      expect(page).to have_content("Three Most Popular Ingredients:")
+      expect(page).to have_content(@garlic.name)
+      expect(page).to have_content(@parm.name)
+      expect(page).to have_content(@carrots.name)
+
+      expect(page).to_not have_content(@beef.name)
+    end
+  end
 end
