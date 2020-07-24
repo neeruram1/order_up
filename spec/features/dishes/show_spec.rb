@@ -14,6 +14,14 @@ RSpec.describe "Dish show page" do
     @garlic = Ingredient.create(name: "Garlic Clove", calories: 50.0)
     @carrots = Ingredient.create(name: "Carrots", calories: 140.0)
     @beef = Ingredient.create(name: "Beef Shoulder", calories: 450.0)
+
+    DishIngredient.create(dish: @sunday_gravy, ingredient: @sausage)
+    DishIngredient.create(dish: @sunday_gravy, ingredient: @rigatoni)
+    DishIngredient.create(dish: @sunday_gravy, ingredient: @parm)
+
+    DishIngredient.create(dish: @boeuf, ingredient: @garlic)
+    DishIngredient.create(dish: @boeuf, ingredient: @carrots)
+    DishIngredient.create(dish: @boeuf, ingredient: @beef)
   end
 
   it "I see a list of ingredients for that dish and the chef's name" do
