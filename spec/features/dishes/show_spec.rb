@@ -4,8 +4,8 @@ RSpec.describe "Dish show page" do
   before(:each) do
     @tony = Chef.create(name: "Anthony Bourdain")
 
-    @sunday_gravy = Dish.create(name: "Sunday Gravy with Sausage and Rigatoni", description: "An Italo-American Jersey classic")
-    @boeuf = Dish.create(name: "Boeuf Bourguignon", description: "A classic French dish that sticks to your ribs")
+    @sunday_gravy = Dish.create(name: "Sunday Gravy with Sausage and Rigatoni", description: "An Italo-American Jersey classic", chef: @tony)
+    @boeuf = Dish.create(name: "Boeuf Bourguignon", description: "A classic French dish that sticks to your ribs", chef: @tony)
 
     @sausage = Ingredient.create(name: "Hot Pork Sausage Links", calories: 240.0)
     @rigatoni = Ingredient.create(name: "Rigatoni", calories: 340.0)
@@ -17,6 +17,7 @@ RSpec.describe "Dish show page" do
   end
 
   it "I see a list of ingredients for that dish and the chef's name" do
+
     visit "/dishes/#{@sunday_gravy.id}"
 
     expect(page).to have_content(@tony.name)
